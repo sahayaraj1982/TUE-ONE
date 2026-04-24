@@ -140,8 +140,48 @@ function init() {
 async function handleLogin() {
     const u = document.getElementById('logUser').value.trim().toUpperCase();
     const p = document.getElementById('logPin').value.trim();
-    const today = new Date().toISOString().split('T')[0];
     const btn = document.getElementById('loginSubmitBtn');
+
+    // இன்றைய தேதியை எடுக்கும் முறை
+    const now = new Date();
+    const today = now.toISOString().split('T')[0];
+
+    if(!u || !p) return alert("ID & PIN REQUIRED!");
+    btn.innerText = "CHECKING... ⏳"; btn.disabled = true;
+
+    try {
+        const response = await fetch(GOOGLE_SCRIPT_URL);
+        const users = await response.json();
+        const found = users.find(x => x.id === u && x.pin === p);
+        
+        if (found) {
+            if (today <= found.exp) {
+                // இதுதான் தேதியை உங்கள் மொபைலில் நிரந்தரமாகப் பதிவு செய்யும்
+                cfg.expiryDate = found.exp; 
+                cfg.currentUser = found.id;
+                localStorage.setItem('saha_v66_cfg', JSON.stringify(cfg));
+
+                document.getElementById('loginOverlay').classList.add('hidden');
+                document.getElementById('appPage').classList.remove('hidden');
+                document.getElementById('currentUser').innerText = found.id;
+                
+                // தேதியைக் காட்டும் வேலையைச் செய்கிறது
+                updateExpiryText();
+            } else { 
+                alert("காலாவதியாகிவிட்டது! Exp: " + found.exp); 
+            }
+        } else { alert("தவறான ஐடி/பாஸ்வேர்ட்!"); }
+    } catch (e) { alert("இன்டர்நெட் எர்ரர்!"); }
+    finally { btn.innerText = "LOG IN ✅"; btn.disabled = false; }
+}
+
+// இந்த சின்ன பங்க்ஷனையும் அதன் கீழே சேர்த்துவிடுங்கள்
+function updateExpiryText() {
+    if(cfg.expiryDate) {
+        const d = cfg.expiryDate.split('-').reverse().join('/');
+        document.getElementById('expiryDisplay').innerText = "RENEWAL: " + d;
+    }
+}
 
     if(!u || !p) return alert("ID & PIN REQUIRED!");
     btn.innerText = "WAIT... ⏳"; btn.disabled = true;
