@@ -12,7 +12,6 @@
         body { background-color: #475569; font-family: 'Arial Black', sans-serif; overflow-x: hidden; }
         * { font-weight: 950 !important; }
         
-        /* லாகின் திரை ஸ்டைல் */
         #loginOverlay { background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%); display: flex; align-items: center; justify-content: center; position: fixed; inset: 0; z-index: 2000; }
         .login-box { background: white; padding: 30px; border-radius: 30px; border: 8px solid #000; width: 95%; max-width: 400px; box-shadow: 0 20px 0 #000; }
 
@@ -45,8 +44,8 @@
         <h2 class="text-3xl mb-6 italic uppercase">SAHA LOGIN</h2>
         <input type="text" id="logUser" placeholder="USER ID" class="w-full p-4 mb-4 border-4 border-black rounded-xl text-center uppercase">
         <input type="password" id="logPin" placeholder="PASSWORD" class="w-full p-4 mb-6 border-4 border-black rounded-xl text-center">
-        <button onclick="handleLogin()" id="loginSubmitBtn" class="w-full bg-blue-600 py-4 rounded-xl text-white text-xl btn-style">LOG IN ✅</button>
-        <p class="text-[10px] mt-4 opacity-50">v6.6 Multi-User System</p>
+        <button onclick="handleLogin()" class="w-full bg-blue-600 py-4 rounded-xl text-white text-xl btn-style">LOG IN ✅</button>
+        <p class="text-[10px] mt-4 opacity-50">V6.6 SECURE ACCESS</p>
     </div>
 </div>
 
@@ -74,10 +73,7 @@
         </div>
 
         <div class="action-bar">
-            <div class="action-btn bell-btn" onclick="document.getElementById('bellStartDate').showPicker()">
-                🔔 BELL
-                <input type="date" id="bellStartDate" onchange="setStartingDate()" class="absolute opacity-0 pointer-events-none w-0">
-            </div>
+            <div class="action-btn bell-btn" onclick="document.getElementById('bellStartDate').showPicker()">🔔 BELL<input type="date" id="bellStartDate" onchange="setStartingDate()" class="absolute opacity-0 pointer-events-none w-0"></div>
             <div id="viewCR" onclick="setViewMode('CR')" class="action-btn active">CREDIT (+)</div>
             <div id="viewDR" onclick="setViewMode('DR')" class="action-btn">DEBIT (-)</div>
             <div id="viewBOTH" onclick="setViewMode('BOTH')" class="action-btn">BOTH</div>
@@ -90,8 +86,7 @@
                 <div class="bg-white p-6 rounded-3xl border-4 border-black shadow-[10px_10px_0px_#000]">
                     <h3 class="text-xl border-b-4 border-green-600 mb-4 italic uppercase">New Entry</h3>
                     <div class="grid grid-cols-2 gap-4">
-                        <input type="hidden" id="editId">
-                        <input type="date" id="eDate" class="border-2 border-black p-3 rounded-xl">
+                        <input type="hidden" id="editId"><input type="date" id="eDate" class="border-2 border-black p-3 rounded-xl">
                         <input type="tel" id="eMob" placeholder="Mobile" class="border-2 border-black p-3 rounded-xl">
                         <select id="eCat" class="border-2 border-black p-3 rounded-xl"></select>
                         <input type="text" id="eDesc" placeholder="Remark" class="border-2 border-black p-3 rounded-xl">
@@ -104,13 +99,10 @@
                 <div class="bg-white p-6 rounded-3xl border-4 border-black shadow-[10px_10px_0px_#000]">
                     <h3 class="text-xl border-b-4 border-blue-600 mb-4 italic uppercase">Search & Tools</h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
-                        <input type="date" id="fDate" class="text-xs border-2 border-black p-2">
-                        <input type="date" id="tDate" class="text-xs border-2 border-black p-2">
-                        <input type="tel" id="sMob" placeholder="Mobile" class="text-xs border-2 border-black p-2">
-                        <input type="text" id="sDesc" placeholder="Remark Search" class="text-xs border-2 border-black p-2">
+                        <input type="date" id="fDate" class="text-xs border-2 border-black p-2"><input type="date" id="tDate" class="text-xs border-2 border-black p-2">
+                        <input type="tel" id="sMob" placeholder="Mobile" class="text-xs border-2 border-black p-2"><input type="text" id="sDesc" placeholder="Remark Search" class="text-xs border-2 border-black p-2">
                     </div>
                     <div id="filterCatList" class="flex flex-wrap gap-2 mb-4"></div>
-                    
                     <div class="grid grid-cols-4 gap-3">
                         <button id="pdfBtn" onclick="downloadPDF()" class="bg-orange-600 py-3 rounded-lg btn-style text-[10px]">PDF</button>
                         <button id="waBtn" onclick="sendWhatsApp()" class="bg-green-600 py-3 rounded-lg btn-style text-[10px]">W/APP</button>
@@ -138,292 +130,107 @@
 
 <div id="setModal" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-2">
     <div class="cp-card">
-        <div class="flex justify-between items-center mb-4">
-            <h2 class="text-2xl uppercase">System Control Panel</h2>
-            <button onclick="closeSettings()" class="bg-red-600 text-white px-6 py-2 rounded-xl btn-style">CLOSE</button>
-        </div>
+        <div class="flex justify-between items-center mb-4"><h2 class="text-2xl uppercase">Control Panel</h2><button onclick="closeSettings()" class="bg-red-600 text-white px-6 py-2 rounded-xl btn-style">CLOSE</button></div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div>
-                <p class="section-title">1. Color Settings</p>
-                <div class="setting-row"><span>Banner Color</span><input type="color" id="setHeadCol"></div>
-                <div class="setting-row"><span>Name Color</span><input type="color" id="setNameCol"></div>
-                <div class="setting-row"><span>Button Color</span><input type="color" id="setBtmCol"></div>
-                <div class="setting-row"><span>Outline Color</span><input type="color" id="setOutCol"></div>
-                <div class="setting-row"><span>Cat Letter Col</span><input type="color" id="setCatLetCol"></div>
-                <div class="setting-row"><span>Cat Number Col</span><input type="color" id="setCatNumCol"></div>
-            </div>
-            <div>
-                <p class="section-title">2. Font & Sizes</p>
-                <div class="setting-row"><span>Banner Name</span><input type="text" id="setTitle" class="w-24 text-[10px]"></div>
-                <div class="setting-row"><span>Date/Time Size</span><input type="number" id="setFsDT" class="w-12"></div>
-                <div class="setting-row"><span>Cat Letter Size</span><input type="number" id="setFsCatL" class="w-12"></div>
-                <div class="setting-row"><span>Cat Number Size</span><input type="number" id="setFsCatN" class="w-12"></div>
-                <div class="setting-row"><span>Entry Font Size</span><input type="number" id="setFsEnt" class="w-12"></div>
-                <div class="setting-row"><span>Width %</span><input type="number" id="setScrW" class="w-12"></div>
-            </div>
-            <div>
-                <p class="section-title">3. Switches</p>
-                <div class="setting-row"><span>Back Button</span><input type="checkbox" id="swBack"></div>
-                <div class="setting-row"><span>Show Date</span><input type="checkbox" id="swDate"></div>
-                <div class="setting-row"><span>Show Clock</span><input type="checkbox" id="swClock"></div>
-                <div class="setting-row"><span>Edit Pen</span><input type="checkbox" id="swPen"></div>
-                <div class="setting-row"><span>Single Delete</span><input type="checkbox" id="swTrDel"></div>
-                <div class="setting-row"><span>All Delete Sw</span><input type="checkbox" id="swAllDel"></div>
-                <div class="setting-row"><span>Import Sw</span><input type="checkbox" id="swImp"></div>
-                <div class="setting-row"><span>Export Sw</span><input type="checkbox" id="swExp"></div>
-                <div class="setting-row"><span>PDF Sw</span><input type="checkbox" id="swPdf"></div>
-                <div class="setting-row"><span>WhatsApp Sw</span><input type="checkbox" id="swWa"></div>
-            </div>
-            <div>
-                <p class="section-title">4. Status & Security</p>
-                <div class="setting-row"><span>Admin PIN</span><input type="password" id="setAdminPin" class="w-16"></div>
-                <div class="setting-row"><span>Expiry Date</span><input type="date" id="setExpDate" class="text-[9px]"></div>
-            </div>
+            <div><p class="section-title">Colors</p><div class="setting-row"><span>Banner</span><input type="color" id="setHeadCol"></div><div class="setting-row"><span>Name</span><input type="color" id="setNameCol"></div><div class="setting-row"><span>Out</span><input type="color" id="setOutCol"></div></div>
+            <div><p class="section-title">Text</p><div class="setting-row"><span>Title</span><input type="text" id="setTitle" class="w-24 text-[10px]"></div><div class="setting-row"><span>Entry Size</span><input type="number" id="setFsEnt" class="w-12"></div></div>
+            <div><p class="section-title">Security</p><div class="setting-row"><span>Admin PIN</span><input type="password" id="setAdminPin" class="w-16"></div></div>
         </div>
-        <button onclick="saveSettings()" class="w-full bg-blue-700 text-white py-4 mt-6 rounded-xl text-2xl btn-style">SAVE ALL SETTINGS ✅</button>
+        <button onclick="saveSettings()" class="w-full bg-blue-700 text-white py-4 mt-6 rounded-xl text-2xl btn-style">SAVE ✅</button>
     </div>
 </div>
 
 <script>
-// --- 10 USERS DATABASE ---
 const USERS_DB = [
     { id: "FLOR", pin: "1234", exp: "2026-12-30" },
     { id: "SAHA", pin: "2233", exp: "2026-06-15" },
     { id: "PANEER", pin: "4455", exp: "2026-08-20" },
-    { id: "ADMIN", pin: "0000", exp: "2027-01-01" },
-    { id: "USER1", pin: "1111", exp: "2026-05-10" },
-    { id: "USER2", pin: "2222", exp: "2026-05-15" },
-    { id: "USER3", pin: "3333", exp: "2026-05-20" },
-    { id: "USER4", pin: "4444", exp: "2026-05-25" },
-    { id: "USER5", pin: "5555", exp: "2026-05-30" },
-    { id: "GUEST", pin: "9999", exp: "2026-04-30" }
+    { id: "ADMIN", pin: "0000", exp: "2027-01-01" }
 ];
 
 let cfg = JSON.parse(localStorage.getItem('saha_v66_cfg')) || {
     "title":"SAHAYARAJ-2026", "headCol":"#0c40bb", "nameCol":"#ffffff", "outCol":"#54301d", "btmCol":"#0b08d4", "catLetCol":"#e32b2b", "catNumCol":"#1e40af",
     "scrW":95, "fsDT":22, "fsCatL":14, "fsCatN":28, "fsEnt":14,
     "swBack":true, "swDate":true, "swClock":true, "swPen":true, "swTrDel":true, "swAllDel":true, "swPdf":true, "swWa":true, "swImp":true, "swExp":true,
-    "adminPin":"1020", "expiryDate":"", "startingDate":"", "driveUrl":"", "currentUser":"", "isLogged": false,
-    "cats":[]
+    "adminPin":"1020", "expiryDate":"", "isLogged": false, "currentUser":"", "cats":[]
 };
 let db = JSON.parse(localStorage.getItem('saha_v66_db')) || [];
 let activeFilters = [];
 let currentViewMode = "CR"; 
 
 function init() {
-    // லாகின் செக்
-    if(cfg.isLogged) {
-        checkAndShowApp();
-    }
-
+    if(cfg.isLogged) checkAndShowApp();
     document.documentElement.style.setProperty('--p-bg', cfg.headCol);
     document.documentElement.style.setProperty('--n-col', cfg.nameCol);
     document.documentElement.style.setProperty('--btm', cfg.btmCol);
     document.documentElement.style.setProperty('--out', cfg.outCol);
-    document.documentElement.style.setProperty('--c-let', cfg.catLetCol);
-    document.documentElement.style.setProperty('--c-num', cfg.catNumCol);
     document.getElementById('mainContainer').style.width = cfg.scrW + "%";
     document.getElementById('dispTitle').innerText = cfg.title;
-    
-    document.getElementById('pdfBtn').style.display = cfg.swPdf ? 'block' : 'none';
-    document.getElementById('waBtn').style.display = cfg.swWa ? 'block' : 'none';
-    document.getElementById('delAllBtn').style.display = cfg.swAllDel ? 'block' : 'none';
-    document.getElementById('impBtn').style.display = cfg.swImp ? 'block' : 'none';
-    document.getElementById('expBtn').style.display = cfg.swExp ? 'block' : 'none';
-
     startClock(); renderUI(); refresh();
 }
 
-// --- LOGIN LOGIC ---
 function handleLogin() {
     const uInput = document.getElementById('logUser').value.trim().toUpperCase();
     const pInput = document.getElementById('logPin').value.trim();
-    const today = new Date().toISOString().split('T')[0];
-
+    const todayStr = new Date().toISOString().split('T')[0];
     const found = USERS_DB.find(u => u.id === uInput && u.pin === pInput);
 
     if (found) {
-        if (today <= found.exp) {
-            cfg.isLogged = true;
-            cfg.currentUser = found.id;
-            cfg.expiryDate = found.exp;
+        if (todayStr <= found.exp) {
+            cfg.isLogged = true; cfg.currentUser = found.id; cfg.expiryDate = found.exp;
             localStorage.setItem('saha_v66_cfg', JSON.stringify(cfg));
             checkAndShowApp();
-        } else {
-            alert("EXPIRY DATE OVER: " + found.exp);
-        }
-    } else {
-        alert("INVALID USER ID OR PASSWORD!");
-    }
+        } else { alert("EXPIRED: " + found.exp); }
+    } else { alert("INVALID LOGIN!"); }
 }
 
 function checkAndShowApp() {
-    const today = new Date().toISOString().split('T')[0];
-    if (today > cfg.expiryDate) {
-        alert("SESSION EXPIRED!");
-        logout();
-        return;
-    }
-
+    const todayStr = new Date().toISOString().split('T')[0];
+    if (todayStr > cfg.expiryDate) { logout(); return; }
     document.getElementById('loginOverlay').classList.add('hidden');
     document.getElementById('appPage').classList.remove('hidden');
     document.getElementById('currentUserDisplay').innerText = cfg.currentUser;
-
-    // எக்ஸ்பைரிக்கு ஒரு நாள் முந்தைய தேதியைக் காட்டுதல்
     if(cfg.expiryDate) {
-        let exp = new Date(cfg.expiryDate);
-        exp.setDate(exp.getDate() - 1);
+        let exp = new Date(cfg.expiryDate); exp.setDate(exp.getDate() - 1);
         document.getElementById('expiryDisplay').innerText = "RENEWAL: " + exp.toLocaleDateString('en-GB');
     }
-    
-    if(cfg.startingDate) { document.getElementById('startDateDisplay').innerText = "FROM: " + cfg.startingDate.split('-').reverse().join('/'); }
 }
 
-function logout() {
-    cfg.isLogged = false;
-    cfg.currentUser = "";
-    cfg.expiryDate = "";
-    localStorage.setItem('saha_v66_cfg', JSON.stringify(cfg));
-    location.reload();
-}
-
-// --- CLOCK ---
+function logout() { cfg.isLogged = false; localStorage.setItem('saha_v66_cfg', JSON.stringify(cfg)); location.reload(); }
 function startClock() { setInterval(() => { const now = new Date(); document.getElementById('liveDateTime').innerHTML = `${now.toLocaleDateString('en-GB')} | ${now.toLocaleTimeString('en-GB')}`; }, 1000); }
 
-// --- UI & REFRESH ---
-function refresh() {
-    db.sort((a, b) => new Date(b.date) - new Date(a.date));
-    let html = "";
-    let grand = 0;
-    
-    // 1. எல்லா கேட்டகிரிக்கும் முதலில் 0 என்று செட் செய்யவும்
-    let tempSums = {}; 
-    cfg.cats.forEach(c => tempSums[c] = 0);
-
-    // 2. மொத்த டேட்டாவிலும் கேட்டகிரி வாரியாகக் கணக்கிடவும் (இதுதான் முக்கியம்!)
-    db.forEach(t => {
-        let amt = parseFloat(t.amt) || 0;
-        let v = (t.type === "CR") ? amt : -amt;
-        // கேட்டகிரி பெயர் மேட்ச் ஆகிறதா என்று பார்க்கிறது
-        if(tempSums.hasOwnProperty(t.cat)) {
-            tempSums[t.cat] += v;
-        }
+function renderUI() {
+    const grid = document.getElementById('catGrid'), eSel = document.getElementById('eCat'), fList = document.getElementById('filterCatList');
+    grid.innerHTML = ""; eSel.innerHTML = ""; fList.innerHTML = `<button onclick="toggleFilter('ALL')" id="btn_ALL" class="bg-blue-900 text-white px-3 py-1 rounded-lg btn-style text-[10px] filter-btn-active">ALL</button>`;
+    cfg.cats.forEach((c) => {
+        grid.innerHTML += `<div class="cat-card"><p style="font-size:${cfg.fsCatL}px; color:var(--c-let)">${c}</p><h3 style="font-size:${cfg.fsCatN}px; color:var(--c-num)">₹<span id="sum_${c}">0</span></h3></div>`;
+        eSel.innerHTML += `<option value="${c}">${c}</option>`;
+        fList.innerHTML += `<button onclick="toggleFilter('${c}')" id="btn_${c}" class="bg-blue-900 text-white px-3 py-1 rounded-lg btn-style text-[10px]">${c}</button>`;
     });
-
-    // 3. பில்டர் செய்யப்பட்ட டேட்டாவை மட்டும் டேபிளில் காட்டுதல்
-    let filtered = getFilteredData();
-    filtered.forEach(t => {
-        let amt = parseFloat(t.amt) || 0;
-        let v = (t.type === "CR") ? amt : -amt;
-        grand += v;
-        
-        html += `<tr class="border-b hover:bg-gray-100" style="font-size:${cfg.fsEnt}px">
-            <td class="p-3">${t.date.split('-').reverse().join('/')}</td>
-            <td class="p-3">${t.mob}</td>
-            <td class="p-3">${t.cat}</td>
-            <td class="p-3 text-blue-700">${t.desc}</td>
-            <td class="p-3 text-right ${t.type==='CR'?'text-green-600':'text-red-600'}">₹${amt.toLocaleString()}</td>
-            <td class="p-3 flex justify-center gap-4">
-                ${cfg.swPen ? `<button onclick="editRow(${t.id})" class="text-xl">🖋️</button>` : ''}
-                ${cfg.swTrDel ? `<button onclick="del(${t.id})" class="text-xl text-red-600">✖</button>` : ''}
-            </td>
-        </tr>`;
-    });
-
-    document.getElementById('resTable').innerHTML = html;
-    document.getElementById('mainTotal').innerText = "₹" + grand.toLocaleString();
-    document.getElementById('recCount').innerText = filtered.length;
-
-    // 4. பட்டன்களில் தொகையை அப்டேட் செய்யும் இடம்
-    cfg.cats.forEach(c => { 
-        let targetId = 'sum_' + c;
-        let element = document.getElementById(targetId);
-        if(element) {
-            element.innerText = (tempSums[c] || 0).toLocaleString();
-        }
-    });
-}click="toggleFilter('${c}')" id="btn_${c}" class="bg-blue-900 text-white px-3 py-1 rounded-lg btn-style text-[10px]">${c}</button>`;
-    });
-}
-
-function setViewMode(mode) {
-    currentViewMode = mode;
-    document.querySelectorAll('.action-btn').forEach(btn => btn.classList.remove('active'));
-    document.getElementById('view' + mode).classList.add('active');
-    refresh();
-}
-
-function editRow(id) {
-    const item = db.find(x => x.id === id);
-    if(item) {
-        document.getElementById('editId').value = item.id;
-        document.getElementById('eDate').value = item.date;
-        document.getElementById('eMob').value = item.mob === "-" ? "" : item.mob;
-        document.getElementById('eCat').value = item.cat;
-        document.getElementById('eDesc').value = item.desc === "-" ? "" : item.desc;
-        document.getElementById('eAmt').value = item.amt;
-        document.getElementById('eType').value = item.type;
-        document.getElementById('saveBtn').innerText = "UPDATE 🖋️";
-        document.getElementById('saveBtn').classList.replace('bg-green-600', 'bg-blue-600');
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    }
-}
-
-function saveData() {
-    const d = document.getElementById('eDate').value, a = document.getElementById('eAmt').value, editId = document.getElementById('editId').value;
-    if(!d || !a) return alert("DATE AND AMOUNT REQUIRED!");
-    
-    let entry = { 
-        id: editId ? parseInt(editId) : Date.now(), 
-        date: d, 
-        mob: document.getElementById('eMob').value || "-", 
-        cat: document.getElementById('eCat').value, 
-        desc: document.getElementById('eDesc').value || "-", 
-        amt: a, 
-        type: document.getElementById('eType').value 
-    };
-
-    if(editId) {
-        const idx = db.findIndex(x => x.id == editId);
-        db[idx] = entry;
-        document.getElementById('editId').value = "";
-        document.getElementById('saveBtn').innerText = "SAVE ✅";
-        document.getElementById('saveBtn').classList.replace('bg-blue-600', 'bg-green-600');
-    } else {
-        db.push(entry);
-    }
-
-    localStorage.setItem('saha_v66_db', JSON.stringify(db));
-    refresh();
-    document.getElementById('eAmt').value = ""; document.getElementById('eDesc').value = "";
 }
 
 function refresh() {
     db.sort((a, b) => new Date(b.date) - new Date(a.date));
     let html = "", grand = 0;
     let tempSums = {}; cfg.cats.forEach(c => tempSums[c] = 0);
-    let filtered = getFilteredData();
+    
+    // பில்டரைத் தாண்டி பட்டன்களில் தொகை வர கணக்கீடு
+    db.forEach(t => {
+        let v = (t.type === "CR") ? parseFloat(t.amt) : -parseFloat(t.amt);
+        if(tempSums.hasOwnProperty(t.cat)) tempSums[t.cat] += v;
+    });
 
+    let filtered = getFilteredData();
     filtered.forEach(t => {
         let amt = parseFloat(t.amt) || 0;
-        let v = (t.type === "CR") ? amt : -amt; 
-        if(tempSums.hasOwnProperty(t.cat)) tempSums[t.cat] += v; 
-        grand += v;
-        html += `<tr class="border-b hover:bg-gray-100" style="font-size:${cfg.fsEnt}px">
-            <td class="p-3">${t.date.split('-').reverse().join('/')}</td>
-            <td class="p-3">${t.mob}</td>
-            <td class="p-3">${t.cat}</td>
-            <td class="p-3 text-blue-700">${t.desc}</td>
-            <td class="p-3 text-right ${t.type==='CR'?'text-green-600':'text-red-600'}">₹${amt.toLocaleString()}</td>
-            <td class="p-3 flex justify-center gap-4">
-                ${cfg.swPen ? `<button onclick="editRow(${t.id})" class="text-xl">🖋️</button>` : ''}
-                ${cfg.swTrDel ? `<button onclick="del(${t.id})" class="text-xl text-red-600">✖</button>` : ''}
-            </td>
-        </tr>`;
+        grand += (t.type === "CR" ? amt : -amt);
+        html += `<tr class="border-b" style="font-size:${cfg.fsEnt}px">
+            <td class="p-3">${t.date.split('-').reverse().join('/')}</td><td class="p-3">${t.mob}</td><td class="p-3">${t.cat}</td>
+            <td class="p-3 text-blue-700">${t.desc}</td><td class="p-3 text-right ${t.type==='CR'?'text-green-600':'text-red-600'}">₹${amt.toLocaleString()}</td>
+            <td class="p-3 flex justify-center gap-4"><button onclick="editRow(${t.id})">🖋️</button><button onclick="del(${t.id})" class="text-red-600">✖</button></td></tr>`;
     });
     document.getElementById('resTable').innerHTML = html;
     document.getElementById('mainTotal').innerText = "₹" + grand.toLocaleString();
-    document.getElementById('recCount').innerText = filtered.length;
     cfg.cats.forEach(c => { if(document.getElementById('sum_'+c)) document.getElementById('sum_'+c).innerText = (tempSums[c] || 0).toLocaleString(); });
 }
 
@@ -435,131 +242,22 @@ function getFilteredData() {
     });
 }
 
-// --- SETTINGS ---
-function openSettings() { 
-    if(prompt("ADMIN PIN:") === cfg.adminPin) { 
-        document.getElementById('setModal').classList.remove('hidden');
-        document.getElementById('setHeadCol').value = cfg.headCol;
-        document.getElementById('setNameCol').value = cfg.nameCol;
-        document.getElementById('setBtmCol').value = cfg.btmCol;
-        document.getElementById('setOutCol').value = cfg.outCol;
-        document.getElementById('setCatLetCol').value = cfg.catLetCol;
-        document.getElementById('setCatNumCol').value = cfg.catNumCol;
-        document.getElementById('setTitle').value = cfg.title;
-        document.getElementById('setFsDT').value = cfg.fsDT;
-        document.getElementById('setFsCatL').value = cfg.fsCatL;
-        document.getElementById('setFsCatN').value = cfg.fsCatN;
-        document.getElementById('setFsEnt').value = cfg.fsEnt;
-        document.getElementById('setScrW').value = cfg.scrW;
-        document.getElementById('swBack').checked = cfg.swBack;
-        document.getElementById('swDate').checked = cfg.swDate;
-        document.getElementById('swClock').checked = cfg.swClock;
-        document.getElementById('swPen').checked = cfg.swPen;
-        document.getElementById('swTrDel').checked = cfg.swTrDel;
-        document.getElementById('swAllDel').checked = cfg.swAllDel;
-        document.getElementById('swImp').checked = cfg.swImp;
-        document.getElementById('swExp').checked = cfg.swExp;
-        document.getElementById('swPdf').checked = cfg.swPdf;
-        document.getElementById('swWa').checked = cfg.swWa;
-        document.getElementById('setAdminPin').value = cfg.adminPin;
-        document.getElementById('setExpDate').value = cfg.expiryDate;
-    } 
+function saveData() {
+    const d = document.getElementById('eDate').value, a = document.getElementById('eAmt').value, editId = document.getElementById('editId').value;
+    if(!d || !a) return alert("REQUIRED!");
+    let entry = { id: editId ? parseInt(editId) : Date.now(), date: d, mob: document.getElementById('eMob').value || "-", cat: document.getElementById('eCat').value, desc: document.getElementById('eDesc').value || "-", amt: a, type: document.getElementById('eType').value };
+    if(editId) { db[db.findIndex(x => x.id == editId)] = entry; document.getElementById('editId').value = ""; document.getElementById('saveBtn').innerText = "SAVE ✅"; } else { db.push(entry); }
+    localStorage.setItem('saha_v66_db', JSON.stringify(db)); refresh();
 }
 
-function saveSettings() {
-    cfg.headCol = document.getElementById('setHeadCol').value; cfg.nameCol = document.getElementById('setNameCol').value;
-    cfg.btmCol = document.getElementById('setBtmCol').value; cfg.outCol = document.getElementById('setOutCol').value;
-    cfg.catLetCol = document.getElementById('setCatLetCol').value; cfg.catNumCol = document.getElementById('setCatNumCol').value;
-    cfg.title = document.getElementById('setTitle').value; cfg.fsDT = parseInt(document.getElementById('setFsDT').value);
-    cfg.fsCatL = parseInt(document.getElementById('setFsCatL').value); cfg.fsCatN = parseInt(document.getElementById('setFsCatN').value);
-    cfg.fsEnt = parseInt(document.getElementById('setFsEnt').value); cfg.scrW = parseInt(document.getElementById('setScrW').value);
-    cfg.swBack = document.getElementById('swBack').checked; cfg.swDate = document.getElementById('swDate').checked;
-    cfg.swClock = document.getElementById('swClock').checked; cfg.swPen = document.getElementById('swPen').checked;
-    cfg.swTrDel = document.getElementById('swTrDel').checked; cfg.swAllDel = document.getElementById('swAllDel').checked;
-    cfg.swImp = document.getElementById('swImp').checked; cfg.swExp = document.getElementById('swExp').checked;
-    cfg.swPdf = document.getElementById('swPdf').checked; cfg.swWa = document.getElementById('swWa').checked;
-    cfg.adminPin = document.getElementById('setAdminPin').value;
-    cfg.expiryDate = document.getElementById('setExpDate').value;
-    localStorage.setItem('saha_v66_cfg', JSON.stringify(cfg)); location.reload();
-}
-
+function setViewMode(mode) { currentViewMode = mode; document.querySelectorAll('.action-btn').forEach(btn => btn.classList.remove('active')); document.getElementById('view' + mode).classList.add('active'); refresh(); }
+function toggleFilter(cat) { if(cat === 'ALL') { activeFilters = []; document.querySelectorAll('#filterCatList button').forEach(b => b.classList.remove('filter-btn-active')); document.getElementById('btn_ALL').classList.add('filter-btn-active'); } else { document.getElementById('btn_ALL').classList.remove('filter-btn-active'); const idx = activeFilters.indexOf(cat); if(idx > -1) { activeFilters.splice(idx, 1); document.getElementById('btn_'+cat).classList.remove('filter-btn-active'); } else { activeFilters.push(cat); document.getElementById('btn_'+cat).classList.add('filter-btn-active'); } if(activeFilters.length === 0) document.getElementById('btn_ALL').classList.add('filter-btn-active'); } refresh(); }
+function openSettings() { if(prompt("ADMIN PIN:") === cfg.adminPin) document.getElementById('setModal').classList.remove('hidden'); }
 function closeSettings() { document.getElementById('setModal').classList.add('hidden'); }
-
-// --- TOOLS ---
-function exportData() {
-    const blob = new Blob([JSON.stringify(db)], {type: "application/json"});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a'); a.href = url; a.download = `Backup_${new Date().toLocaleDateString('en-GB')}.json`; a.click();
-}
-
-function importData(event) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        try {
-            const data = JSON.parse(e.target.result);
-            if(Array.isArray(data)) { db = data; localStorage.setItem('saha_v66_db', JSON.stringify(db)); refresh(); alert("Imported!"); }
-        } catch(err) { alert("Invalid File!"); }
-    };
-    if(event.target.files[0]) reader.readAsText(event.target.files[0]);
-}
-
-function setStartingDate() { let v = document.getElementById('bellStartDate').value; if(v) { cfg.startingDate = v; localStorage.setItem('saha_v66_cfg', JSON.stringify(cfg)); init(); } }
-
-function toggleFilter(cat) { 
-    const btnAll = document.getElementById('btn_ALL');
-    if(cat === 'ALL') { activeFilters = []; document.querySelectorAll('#filterCatList button').forEach(b => b.classList.remove('filter-btn-active')); btnAll.classList.add('filter-btn-active'); } 
-    else { 
-        btnAll.classList.remove('filter-btn-active');
-        const idx = activeFilters.indexOf(cat); 
-        if(idx > -1) { activeFilters.splice(idx, 1); document.getElementById('btn_'+cat).classList.remove('filter-btn-active'); } 
-        else { activeFilters.push(cat); document.getElementById('btn_'+cat).classList.add('filter-btn-active'); }
-        if(activeFilters.length === 0) btnAll.classList.add('filter-btn-active');
-    } 
-    refresh(); 
-}
-
-function del(id) { if(confirm("DELETE?")) { db = db.filter(x => x.id !== id); localStorage.setItem('saha_v66_db', JSON.stringify(db)); refresh(); } }
-function deleteAll() { if(confirm("DELETE ALL?")) { db = []; localStorage.setItem('saha_v66_db', JSON.stringify(db)); refresh(); } }
-
-function promptAddCat() {
-    const name = prompt("ENTER NEW CATEGORY NAME:").trim().toUpperCase();
-    if(name && !cfg.cats.includes(name)) { cfg.cats.push(name); localStorage.setItem('saha_v66_cfg', JSON.stringify(cfg)); init(); } else if(name) { alert("DUPLICATE OR INVALID NAME!"); }
-}
-
-function promptDelCat() {
-    if(cfg.cats.length === 0) return alert("NO CATEGORIES TO DELETE!");
-    const list = cfg.cats.join("\n"), name = prompt("TYPE CATEGORY NAME TO DELETE:\n\n" + list).trim().toUpperCase();
-    if(cfg.cats.includes(name)) { if(confirm(`SURE TO DELETE ${name}?`)) { cfg.cats = cfg.cats.filter(c => c !== name); localStorage.setItem('saha_v66_cfg', JSON.stringify(cfg)); init(); } } else if(name) { alert("CATEGORY NOT FOUND!"); }
-}
-
-function promptDriveUrl() { const url = prompt("PASTE GOOGLE DRIVE FOLDER URL:", cfg.driveUrl || ""); if(url !== null) { cfg.driveUrl = url.trim(); localStorage.setItem('saha_v66_cfg', JSON.stringify(cfg)); alert("DRIVE URL SAVED!"); } }
-
-function downloadPDF() {
-    const { jsPDF } = window.jspdf; const doc = new jsPDF(); let filtered = getFilteredData();
-    doc.setFont("helvetica", "bold"); doc.setFontSize(20); doc.text(cfg.title, 105, 20, {align: 'center'});
-    let summaryData = [], grandTotal = 0;
-    cfg.cats.forEach((c) => {
-        let catSum = 0;
-        filtered.forEach(t => { if(t.cat === c) catSum += (t.type === "CR" ? parseFloat(t.amt) : -parseFloat(t.amt)); });
-        if(catSum !== 0) summaryData.push([c, `Rs. ${catSum.toLocaleString()}`]);
-        grandTotal += catSum;
-    });
-    doc.autoTable({ body: summaryData, startY: 40, theme: 'grid' });
-    doc.text(`GRAND TOTAL: RS. ${grandTotal.toLocaleString()}`, 14, doc.lastAutoTable.finalY + 10);
-    doc.autoTable({ head: [['DATE', 'MOBILE', 'CAT', 'REMARK', 'AMOUNT', 'TYPE']], body: filtered.map(t => [t.date.split('-').reverse().join('/'), t.mob, t.cat, t.desc, t.amt.toLocaleString(), t.type]), startY: doc.lastAutoTable.finalY + 20 });
-    doc.save(`${cfg.title}_Report.pdf`);
-}
-
-function sendWhatsApp() {
-    let filtered = getFilteredData(), msg = `*${cfg.title} SUMMARY*\n`, grand = 0;
-    cfg.cats.forEach(c => {
-        let s = 0; filtered.forEach(t => { if(t.cat === c) s += (t.type === "CR" ? parseFloat(t.amt) : -parseFloat(t.amt)); });
-        if(s !== 0) msg += `\n${c}: ₹${s.toLocaleString()}`;
-        grand += s;
-    });
-    msg += `\n\n*TOTAL: ₹${grand.toLocaleString()}*`;
-    window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
-}
+function saveSettings() { cfg.title = document.getElementById('setTitle').value; cfg.adminPin = document.getElementById('setAdminPin').value; localStorage.setItem('saha_v66_cfg', JSON.stringify(cfg)); location.reload(); }
+function del(id) { if(confirm("DEL?")) { db = db.filter(x => x.id !== id); localStorage.setItem('saha_v66_db', JSON.stringify(db)); refresh(); } }
+function promptAddCat() { const name = prompt("NAME:").trim().toUpperCase(); if(name && !cfg.cats.includes(name)) { cfg.cats.push(name); localStorage.setItem('saha_v66_cfg', JSON.stringify(cfg)); init(); } }
+function promptDelCat() { const name = prompt("DELETE NAME:").trim().toUpperCase(); if(cfg.cats.includes(name)) { cfg.cats = cfg.cats.filter(c => c !== name); localStorage.setItem('saha_v66_cfg', JSON.stringify(cfg)); init(); } }
 </script>
 </body>
 </html>
