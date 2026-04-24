@@ -291,18 +291,58 @@ function logout() {
 function startClock() { setInterval(() => { const now = new Date(); document.getElementById('liveDateTime').innerHTML = `${now.toLocaleDateString('en-GB')} | ${now.toLocaleTimeString('en-GB')}`; }, 1000); }
 
 // --- UI & REFRESH ---
-function renderUI() {
-    const grid = document.getElementById('catGrid'), eSel = document.getElementById('eCat'), fList = document.getElementById('filterCatList');
-    grid.innerHTML = ""; eSel.innerHTML = ""; 
-    fList.innerHTML = `<button onclick="toggleFilter('ALL')" id="btn_ALL" class="bg-blue-900 text-white px-3 py-1 rounded-lg btn-style text-[10px] filter-btn-active">ALL</button>`;
-    cfg.cats.forEach((c) => {
-        grid.innerHTML += `
-            <div class="cat-card">
-                <p style="font-size:${cfg.fsCatL}px; color:var(--c-let)">${c}</p>
-                <h3 style="font-size:${cfg.fsCatN}px; color:var(--c-num)">₹<span id="sum_${c}">0</span></h3>
-            </div>`;
-        eSel.innerHTML += `<option value="${c}">${c}</option>`;
-        fList.innerHTML += `<button onclick="toggleFilter('${c}')" id="btn_${c}" class="bg-blue-900 text-white px-3 py-1 rounded-lg btn-style text-[10px]">${c}</button>`;
+function refresh() {
+    db.sort((a, b) => new Date(b.date) - new Date(a.date));
+    let html = "";
+    let grand = 0;
+    
+    // 1. எல்லா கேட்டகிரிக்கும் முதலில் 0 என்று செட் செய்யவும்
+    let tempSums = {}; 
+    cfg.cats.forEach(c => tempSums[c] = 0);
+
+    // 2. மொத்த டேட்டாவிலும் கேட்டகிரி வாரியாகக் கணக்கிடவும் (இதுதான் முக்கியம்!)
+    db.forEach(t => {
+        let amt = parseFloat(t.amt) || 0;
+        let v = (t.type === "CR") ? amt : -amt;
+        // கேட்டகிரி பெயர் மேட்ச் ஆகிறதா என்று பார்க்கிறது
+        if(tempSums.hasOwnProperty(t.cat)) {
+            tempSums[t.cat] += v;
+        }
+    });
+
+    // 3. பில்டர் செய்யப்பட்ட டேட்டாவை மட்டும் டேபிளில் காட்டுதல்
+    let filtered = getFilteredData();
+    filtered.forEach(t => {
+        let amt = parseFloat(t.amt) || 0;
+        let v = (t.type === "CR") ? amt : -amt;
+        grand += v;
+        
+        html += `<tr class="border-b hover:bg-gray-100" style="font-size:${cfg.fsEnt}px">
+            <td class="p-3">${t.date.split('-').reverse().join('/')}</td>
+            <td class="p-3">${t.mob}</td>
+            <td class="p-3">${t.cat}</td>
+            <td class="p-3 text-blue-700">${t.desc}</td>
+            <td class="p-3 text-right ${t.type==='CR'?'text-green-600':'text-red-600'}">₹${amt.toLocaleString()}</td>
+            <td class="p-3 flex justify-center gap-4">
+                ${cfg.swPen ? `<button onclick="editRow(${t.id})" class="text-xl">🖋️</button>` : ''}
+                ${cfg.swTrDel ? `<button onclick="del(${t.id})" class="text-xl text-red-600">✖</button>` : ''}
+            </td>
+        </tr>`;
+    });
+
+    document.getElementById('resTable').innerHTML = html;
+    document.getElementById('mainTotal').innerText = "₹" + grand.toLocaleString();
+    document.getElementById('recCount').innerText = filtered.length;
+
+    // 4. பட்டன்களில் தொகையை அப்டேட் செய்யும் இடம்
+    cfg.cats.forEach(c => { 
+        let targetId = 'sum_' + c;
+        let element = document.getElementById(targetId);
+        if(element) {
+            element.innerText = (tempSums[c] || 0).toLocaleString();
+        }
+    });
+}click="toggleFilter('${c}')" id="btn_${c}" class="bg-blue-900 text-white px-3 py-1 rounded-lg btn-style text-[10px]">${c}</button>`;
     });
 }
 
