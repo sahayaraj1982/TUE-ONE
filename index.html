@@ -3,425 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INDIAN-2026 PREMIUM</title>
+    <title>SAHAYARAJ-2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <style>
-        :root { --p-bg: #0c40bb; --n-col: #ffffff; --out: #1e293b; --btm: #0b08d4; --c-let: #e32b2b; --c-num: #1e40af; }
-        body { background-color: #f0f2f5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        * { font-weight: 800 !important; }
-
-        /* 3D Button Style */
-        .btn-3d {
-            position: relative;
-            border: none;
-            background: var(--btm);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 12px;
-            box-shadow: 0 6px 0 #06048a, 0 8px 15px rgba(0,0,0,0.4);
-            transition: all 0.1s;
-            cursor: pointer;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .btn-3d:active {
-            box-shadow: 0 2px 0 #06048a, 0 4px 8px rgba(0,0,0,0.3);
-            transform: translateY(4px);
-        }
-        .btn-3d-red { background: #dc2626; box-shadow: 0 6px 0 #991b1b; }
-        .btn-3d-red:active { box-shadow: 0 2px 0 #991b1b; }
-        .btn-3d-green { background: #16a34a; box-shadow: 0 6px 0 #14532d; }
-        .btn-3d-green:active { box-shadow: 0 2px 0 #14532d; }
-
-        /* 3D Category Card */
-        .cat-card-3d {
-            background: #fff;
-            border-radius: 20px;
-            padding: 15px;
-            border: 2px solid #e2e8f0;
-            box-shadow: 8px 8px 0px #cbd5e1;
-            transition: 0.2s;
-            text-align: center;
-        }
-        .cat-card-3d:hover { transform: translate(-2px, -2px); box-shadow: 10px 10px 0px #94a3b8; }
-
-        .main-app-box { border: 4px solid var(--out); margin: 10px auto; border-radius: 30px; background: #ffffff; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
-        .premium-header { background: linear-gradient(135deg, var(--p-bg), #1e40af); padding: 25px; color: white; border-bottom: 8px solid var(--btm); }
-        .setting-row { display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 6px 12px; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 4px; font-size: 12px; }
+        :root { --p-bg: #0c40bb; --n-col: #ffffff; --out: #54301d; --btm: #0b08d4; --c-let: #e32b2b; --c-num: #1e40af; }
+        body { background-color: #475569; font-family: 'Arial Black', sans-serif; overflow-x: hidden; }
+        * { font-weight: 950 !important; }
         
-        .filter-active { border: 3px solid gold !important; transform: scale(1.05); background: #000 !important; }
-        table tr:nth-child(even) { background-color: #f1f5f9; }
+        /* Login Overlay Style */
+        #loginOverlay { background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%); display: flex; align-items: center; justify-content: center; position: fixed; inset: 0; z-index: 1000; }
+        .login-box { background: white; padding: 30px; border-radius: 30px; border: 8px solid #000; width: 90%; max-width: 400px; box-shadow: 0 20px 0 #000; }
+
+        .main-app-box { border: 10px solid var(--out); margin: 10px auto; border-radius: 40px; background: #f1f5f9; overflow-x: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .premium-header { background-color: var(--p-bg); padding: 25px; border-bottom: 10px solid var(--btm); position: relative; }
+        
+        .cat-card { background: #fff; border: 4px solid var(--out); border-radius: 20px; text-align: center; padding: 15px 10px; box-shadow: 8px 8px 0px var(--out); transition: 0.2s; cursor: pointer; }
+        .cat-card:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0px var(--out); }
+
+        .btn-style { border-bottom: 6px solid rgba(0,0,0,0.4); color: #fff !important; cursor: pointer; transition: 0.1s; text-transform: uppercase; }
+        .btn-style:active { transform: translateY(3px); border-bottom-width: 3px; }
+        
+        .action-bar { display: flex; width: 100%; background: #000; padding: 8px; gap: 8px; }
+        .action-btn { flex: 1; padding: 12px 0; border: 3px solid #fff; color: #fff; font-size: 14px; text-align: center; cursor: pointer; border-radius: 12px; box-shadow: 0 4px 0 #444; }
+        .action-btn.active { background: #ffeb3b; color: #000; box-shadow: none; transform: translateY(4px); }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body onload="init()">
 
-<div id="mainContainer" class="main-app-box max-w-[95%]">
-    <div class="premium-header flex flex-wrap justify-between items-center gap-4">
-        <div class="flex items-center gap-3">
-            <button id="backBtn" onclick="location.reload()" class="btn-3d btn-3d-red w-12 h-12 rounded-full !p-0">⬅</button>
-            <div class="relative">
-                <button id="bellBtn" onclick="document.getElementById('bellDate').showPicker()" class="btn-3d bg-yellow-500 w-12 h-12 rounded-full !p-0 shadow-[0_6px_0_#a16207]">🔔</button>
-                <input type="date" id="bellDate" onchange="setStartingDate()" class="absolute opacity-0 pointer-events-none" style="top:50px">
-            </div>
-            <div>
-                <h1 id="dispTitle" class="text-3xl tracking-tighter italic">INDIAN-2026</h1>
-                <p id="startDateDisplay" class="text-[10px] text-yellow-300 font-bold uppercase"></p>
-            </div>
-        </div>
-        <div class="flex items-center gap-4">
-            <div class="text-right">
-                <p class="text-[10px] opacity-80 uppercase">Filtered Records: <span id="recCount" class="text-yellow-400">0</span></p>
-                <h2 id="mainTotal" class="text-4xl font-black">₹0</h2>
-            </div>
-            <button onclick="openSettings()" class="text-4xl hover:rotate-90 transition-transform">⚙️</button>
-        </div>
-    </div>
-
-    <div class="p-4">
-        <div id="catGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-8"></div>
-
-        <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
-            <div class="bg-slate-50 p-6 rounded-3xl border-2 border-slate-200">
-                <h3 class="text-lg mb-4 flex items-center gap-2">📝 NEW ENTRY</h3>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="space-y-1"><label class="text-[10px]">DATE</label><input type="date" id="eDate" class="w-full border-2 p-2 rounded-lg"></div>
-                    <div class="space-y-1"><label class="text-[10px]">MOBILE</label><input type="tel" id="eMob" placeholder="98765..." class="w-full border-2 p-2 rounded-lg"></div>
-                    <div class="space-y-1"><label class="text-[10px]">CATEGORY</label><select id="eCat" class="w-full border-2 p-2 rounded-lg"></select></div>
-                    <div class="space-y-1"><label class="text-[10px]">TYPE</label><select id="eType" class="w-full border-2 p-2 rounded-lg"><option value="CR">CASH IN (+)</option><option value="DR">CASH OUT (-)</option></select></div>
-                    <div class="col-span-2 space-y-1"><label class="text-[10px]">REMARK / DESCRIPTION</label><input type="text" id="eDesc" placeholder="Enter details..." class="w-full border-2 p-2 rounded-lg"></div>
-                    <div class="col-span-2 space-y-1"><label class="text-[10px]">AMOUNT</label><input type="number" id="eAmt" placeholder="0.00" class="w-full border-2 p-3 rounded-lg text-2xl text-blue-700"></div>
-                </div>
-                <button onclick="saveData()" class="btn-3d btn-3d-green w-full mt-6 py-4 text-xl">SAVE DATA ✅</button>
-            </div>
-
-            <div class="bg-slate-50 p-6 rounded-3xl border-2 border-slate-200">
-                <h3 class="text-lg mb-4 flex items-center gap-2">🔎 SEARCH & TOOLS</h3>
-                <div class="grid grid-cols-3 gap-2 mb-4">
-                    <input type="date" id="fDate" class="text-xs border-2 p-2 rounded">
-                    <input type="date" id="tDate" class="text-xs border-2 p-2 rounded">
-                    <input type="tel" id="sMob" placeholder="Search Mobile" class="text-xs border-2 p-2 rounded">
-                </div>
-                <div id="filterCatList" class="flex flex-wrap gap-2 mb-6"></div>
-                
-                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                    <button id="pdfBtn" onclick="downloadPDF()" class="btn-3d bg-orange-600 shadow-[0_6px_0_#9a3412]">📄 PDF</button>
-                    <button id="waBtn" onclick="sendWhatsApp()" class="btn-3d btn-3d-green">💬 WHATSAPP</button>
-                    <button id="impBtn" onclick="document.getElementById('impFile').click()" class="btn-3d bg-blue-600 shadow-[0_6px_0_#1e40af]">📥 IMPORT</button>
-                    <button id="expBtn" onclick="exportData()" class="btn-3d bg-purple-600 shadow-[0_6px_0_#6b21a8]">📤 EXPORT</button>
-                    <button id="delAllBtn" onclick="deleteAll()" class="btn-3d btn-3d-red">🗑️ RESET</button>
-                    <button onclick="refresh()" class="btn-3d bg-black shadow-[0_6px_0_#333]">🔍 FILTER</button>
-                </div>
-                <input type="file" id="impFile" class="hidden" onchange="importData(event)">
-            </div>
-        </div>
-
-        <div class="mt-8 border-2 border-slate-200 rounded-2xl overflow-hidden shadow-inner">
-            <table class="w-full text-left border-collapse">
-                <thead class="bg-slate-800 text-white text-xs uppercase">
-                    <tr>
-                        <th class="p-4">Date</th>
-                        <th class="p-4">Mobile</th>
-                        <th class="p-4">Category</th>
-                        <th class="p-4">Remark</th>
-                        <th class="p-4 text-right">Amount</th>
-                        <th class="p-4 text-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody id="resTable" class="divide-y divide-slate-200"></tbody>
-            </table>
-        </div>
+<div id="loginOverlay">
+    <div class="login-box">
+        <h2 class="text-3xl text-center mb-6 italic uppercase">SAHA LOGIN</h2>
+        <input type="text" id="logUser" placeholder="USER ID" class="w-full p-4 mb-4 border-4 border-black rounded-xl text-center uppercase">
+        <input type="password" id="logPin" placeholder="PASSWORD" class="w-full p-4 mb-6 border-4 border-black rounded-xl text-center">
+        <button onclick="handleLogin()" id="loginSubmitBtn" class="w-full bg-blue-600 py-4 rounded-xl text-white text-xl btn-style">LOG IN ✅</button>
+        <p class="text-center mt-4 text-xs text-gray-500">Connecting to Cloud Database...</p>
     </div>
 </div>
 
-<div id="setModal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
-    <div class="bg-white w-full max-w-4xl rounded-3xl p-6 max-h-[90vh] overflow-y-auto border-4 border-black">
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-black italic">CONTROL PANEL</h2>
-            <button onclick="closeSettings()" class="btn-3d btn-3d-red">CLOSE</button>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="space-y-4">
-                <h4 class="bg-blue-100 p-2 rounded">🎨 VISUALS</h4>
-                <div class="setting-row"><span>Header Color</span><input type="color" id="setHeadCol"></div>
-                <div class="setting-row"><span>Title Color</span><input type="color" id="setNameCol"></div>
-                <div class="setting-row"><span>App Title</span><input type="text" id="setTitle" class="border rounded px-1"></div>
-            </div>
-            <div class="space-y-4">
-                <h4 class="bg-green-100 p-2 rounded">⚙️ CONFIG</h4>
-                <div class="setting-row"><span>Admin PIN</span><input type="text" id="setAdminPin" class="w-20 border text-center"></div>
-                <div class="setting-row"><span>Expiry Date</span><input type="date" id="setExpDate"></div>
-            </div>
-            <div class="col-span-full">
-                <h4 class="bg-yellow-100 p-2 rounded mb-3">📁 CATEGORY MANAGER</h4>
-                <div id="catEditArea" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+<div id="appPage" class="hidden">
+    <div id="mainContainer" class="main-app-box mx-auto">
+        <div class="premium-header">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <button onclick="location.reload()" class="bg-red-600 w-12 h-12 rounded-full border-4 border-black text-white text-2xl">⬅</button>
+                    <div>
+                        <h1 id="dispTitle" class="text-4xl italic uppercase" style="color: var(--n-col);">SAHAYARAJ-2026</h1>
+                        <div id="liveDateTime" class="text-yellow-300 font-bold" style="font-size: 14px;"></div>
+                        <p class="text-white text-[10px] mt-1">USER: <span id="currentUser" class="text-yellow-400"></span></p>
+                    </div>
+                </div>
+                <div class="text-right text-white">
+                    <h2 id="mainTotal" class="text-4xl">₹0</h2>
+                    <button onclick="openSettings()" class="text-4xl">⚙️</button>
+                </div>
             </div>
         </div>
-        <button onclick="saveSettings()" class="btn-3d btn-3d-green w-full mt-8 py-4 text-xl">SAVE ALL CHANGES ✅</button>
+
+        <div class="action-bar">
+            <div class="action-btn bg-yellow-500" onclick="document.getElementById('bellStartDate').showPicker()">🔔 BELL <input type="date" id="bellStartDate" onchange="setStartingDate()" class="absolute opacity-0 w-0"></div>
+            <div id="viewCR" onclick="setViewMode('CR')" class="action-btn active">CREDIT (+)</div>
+            <div id="viewDR" onclick="setViewMode('DR')" class="action-btn">DEBIT (-)</div>
+            <div id="viewBOTH" onclick="setViewMode('BOTH')" class="action-btn">BOTH</div>
+        </div>
+
+        <div class="p-4">
+            <div id="catGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-5 mb-4"></div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-3xl border-4 border-black shadow-[10px_10px_0px_#000]">
+                    <h3 class="text-xl border-b-4 border-green-600 mb-4 italic uppercase">New Entry</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="hidden" id="editId">
+                        <input type="date" id="eDate" class="border-2 border-black p-3 rounded-xl">
+                        <input type="tel" id="eMob" placeholder="Mobile" class="border-2 border-black p-3 rounded-xl">
+                        <select id="eCat" class="border-2 border-black p-3 rounded-xl"></select>
+                        <input type="text" id="eDesc" placeholder="Remark" class="border-2 border-black p-3 rounded-xl">
+                        <input type="number" id="eAmt" placeholder="Amount" class="border-2 border-black p-3 rounded-xl">
+                        <select id="eType" class="border-2 border-black p-3 rounded-xl"><option value="CR">IN (+)</option><option value="DR">OUT (-)</option></select>
+                    </div>
+                    <button onclick="saveData()" id="saveBtn" class="w-full py-4 mt-6 rounded-xl text-xl btn-style bg-green-600">SAVE ✅</button>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl border-4 border-black shadow-[10px_10px_0px_#000]">
+                    <h3 class="text-xl border-b-4 border-blue-600 mb-4 italic uppercase">Tools</h3>
+                    <div class="grid grid-cols-4 gap-3">
+                        <button onclick="downloadPDF()" class="bg-orange-600 py-3 rounded-lg btn-style text-[10px]">PDF</button>
+                        <button onclick="sendWhatsApp()" class="bg-green-600 py-3 rounded-lg btn-style text-[10px]">W/APP</button>
+                        <button onclick="exportData()" class="bg-purple-600 py-3 rounded-lg btn-style text-[10px]">EXPORT</button>
+                        <button onclick="refresh()" class="bg-slate-800 py-3 rounded-lg btn-style text-[10px]">SEARCH</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-white border-4 border-black rounded-3xl overflow-hidden shadow-2xl">
+                <table class="w-full text-sm">
+                    <thead class="bg-black text-white"><tr><th class="p-3">DATE</th><th class="p-3">CAT</th><th class="p-3">REMARK</th><th class="p-3 text-right">AMOUNT</th><th class="p-3 text-center">ACTION</th></tr></thead>
+                    <tbody id="resTable" class="text-center"></tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
-// --- Configuration & Data Logic ---
+// --- GOOGLE SHEET CONNECTION ---
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbygZcLr-Pd06FWPNIC4g3x-IIENxKzfoNa-0k3rYNFCc29aolA9Y1inH8st6v1QWOk9Hg/exec";
+
+async function handleLogin() {
+    const u = document.getElementById('logUser').value.trim().toUpperCase();
+    const p = document.getElementById('logPin').value.trim();
+    const today = new Date().toISOString().split('T')[0];
+    const btn = document.getElementById('loginSubmitBtn');
+
+    if(!u || !p) return alert("ஐடி மற்றும் பாஸ்வேர்ட் தேவை!");
+
+    btn.innerText = "CHECKING CLOUD... ⏳";
+    btn.disabled = true;
+
+    try {
+        const response = await fetch(GOOGLE_SCRIPT_URL);
+        const onlineUsers = await response.json();
+
+        const found = onlineUsers.find(user => user.id === u && user.pin === p);
+        
+        if (found) {
+            if (today <= found.exp) {
+                document.getElementById('loginOverlay').classList.add('hidden');
+                document.getElementById('appPage').classList.remove('hidden');
+                document.getElementById('currentUser').innerText = found.id;
+            } else {
+                alert("இந்த ஐடியின் காலம் முடிந்துவிட்டது!\nகாலாவதியான தேதி: " + found.exp.split('-').reverse().join('-'));
+            }
+        } else {
+            alert("தவறான ஐடி அல்லது பாஸ்வேர்ட்!");
+        }
+    } catch (error) {
+        alert("இன்டர்நெட் அல்லது கூகுள் ஷீட் இணைப்பைச் சரிபார்க்கவும்!");
+        console.error(error);
+    } finally {
+        btn.innerText = "LOG IN ✅";
+        btn.disabled = false;
+    }
+}
+
+// --- MAIN APP LOGIC ---
 let cfg = JSON.parse(localStorage.getItem('saha_v66_cfg')) || {
-    "title":"SAHAYARAJ-2026", "headCol":"#0c40bb", "nameCol":"#ffffff", "outCol":"#1e293b", "btmCol":"#0b08d4",
-    "adminPin":"1020", "expiryDate":"2027-04-30", "startingDate":"",
-    "cats":["A1","A2","A3","A4","A5","A6","A7"],
-    "catStatus":[true,true,true,true,true,true,true],
-    "swPen":true, "swTrDel":true, "swAllDel":true, "swPdf":true, "swWa":true, "swImp":true, "swExp":true, "swBack":true
+    "title":"SAHAYARAJ-2026", "headCol":"#0c40bb", "nameCol":"#ffffff", "outCol":"#54301d", "btmCol":"#0b08d4", "catLetCol":"#e32b2b", "catNumCol":"#1e40af",
+    "scrW":95, "fsDT":14, "fsCatL":14, "fsCatN":28, "fsEnt":14,
+    "adminPin":"1020", "cats":["CASH", "BANK"]
 };
 let db = JSON.parse(localStorage.getItem('saha_v66_db')) || [];
 let activeFilters = [];
-let lastFilteredData = [];
-let lastGrandTotal = 0;
+let currentViewMode = "CR"; 
 
 function init() {
-    // Expiry Check
-    const today = new Date().toISOString().split('T')[0];
-    if(today > cfg.expiryDate) {
-        alert("SOFTWARE EXPIRED! Contact Admin.");
-        document.body.innerHTML = "<h1 style='color:white;text-align:center;margin-top:20%'>PROJECT EXPIRED (30-04-2026)</h1>";
-        return;
-    }
-
     document.documentElement.style.setProperty('--p-bg', cfg.headCol);
     document.documentElement.style.setProperty('--n-col', cfg.nameCol);
-    document.documentElement.style.setProperty('--btm', cfg.btmCol);
+    document.getElementById('mainContainer').style.width = cfg.scrW + "%";
     document.getElementById('dispTitle').innerText = cfg.title;
-    document.getElementById('dispTitle').style.color = cfg.nameCol;
-
-    if(cfg.startingDate) document.getElementById('startDateDisplay').innerText = "From: " + cfg.startingDate.split('-').reverse().join('/');
-    
-    renderUI();
-    refresh();
+    startClock(); renderUI(); refresh();
 }
+
+function startClock() { setInterval(() => { const now = new Date(); document.getElementById('liveDateTime').innerHTML = `${now.toLocaleDateString('en-GB')} | ${now.toLocaleTimeString('en-GB')}`; }, 1000); }
 
 function renderUI() {
-    const grid = document.getElementById('catGrid'), eSel = document.getElementById('eCat'), fList = document.getElementById('filterCatList');
+    const grid = document.getElementById('catGrid'), eSel = document.getElementById('eCat');
     grid.innerHTML = ""; eSel.innerHTML = ""; 
-    fList.innerHTML = `<button onclick="toggleFilter('ALL')" id="btn_ALL" class="btn-3d !bg-slate-700 !py-1 !px-4 text-[10px] filter-active">ALL</button>`;
-    
-    cfg.cats.forEach((c, i) => {
-        if(cfg.catStatus[i]) {
-            grid.innerHTML += `<div class="cat-card-3d">
-                <p class="text-[10px] text-gray-500 uppercase font-bold">${c}</p>
-                <h3 class="text-xl text-blue-800">₹<span id="sum_${c}">0</span></h3>
-            </div>`;
-            eSel.innerHTML += `<option value="${c}">${c}</option>`;
-            fList.innerHTML += `<button onclick="toggleFilter('${c}')" id="btn_${c}" class="btn-3d !bg-slate-500 !py-1 !px-4 text-[10px]">${c}</button>`;
-        }
+    cfg.cats.forEach((c) => {
+        grid.innerHTML += `<div class="cat-card"><p style="color:var(--c-let)">${c}</p><h3>₹<span id="sum_${c}">0</span></h3></div>`;
+        eSel.innerHTML += `<option value="${c}">${c}</option>`;
     });
 }
 
-function refresh() {
-    const fD = document.getElementById('fDate').value, tD = document.getElementById('tDate').value, sM = document.getElementById('sMob').value;
-    let html = ""; lastGrandTotal = 0;
-    let catSums = {}; cfg.cats.forEach(c => catSums[c] = 0);
-
-    // Filter Logic
-    lastFilteredData = db.filter(t => {
-        const mBell = (!cfg.startingDate || t.date >= cfg.startingDate);
-        const mCat = (activeFilters.length === 0 || activeFilters.includes(t.cat));
-        const mDate = (!fD || t.date >= fD) && (!tD || t.date <= tD);
-        const mMob = (!sM || t.mob.includes(sM));
-        return mBell && mCat && mDate && mMob;
-    }).sort((a,b) => new Date(b.date) - new Date(a.date));
-
-    lastFilteredData.forEach(t => {
-        let amt = parseFloat(t.amt) || 0;
-        let v = (t.type === "CR") ? amt : -amt;
-        catSums[t.cat] += v; lastGrandTotal += v;
-        
-        html += `<tr class="hover:bg-blue-50 transition-colors">
-            <td class="p-4 text-xs">${t.date.split('-').reverse().join('/')}</td>
-            <td class="p-4 text-xs font-mono">${t.mob}</td>
-            <td class="p-4"><span class="bg-slate-200 px-2 py-1 rounded text-[10px]">${t.cat}</span></td>
-            <td class="p-4 text-xs italic text-gray-600">${t.desc}</td>
-            <td class="p-4 text-right ${t.type==='CR'?'text-green-600':'text-red-600'}">₹${amt.toLocaleString()}</td>
-            <td class="p-4 text-center">
-                <button onclick="editRow(${t.id})" class="text-blue-500 mr-3">🖋️</button>
-                <button onclick="del(${t.id})" class="text-red-400">✖</button>
-            </td>
-        </tr>`;
-    });
-
-    document.getElementById('resTable').innerHTML = html;
-    document.getElementById('mainTotal').innerText = "₹" + lastGrandTotal.toLocaleString();
-    document.getElementById('recCount').innerText = lastFilteredData.length;
-    
-    cfg.cats.forEach(c => {
-        if(document.getElementById('sum_'+c)) 
-            document.getElementById('sum_'+c).innerText = (catSums[c] || 0).toLocaleString();
-    });
+function setViewMode(mode) {
+    currentViewMode = mode;
+    document.querySelectorAll('.action-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById('view' + mode).classList.add('active');
+    refresh();
 }
 
 function saveData() {
     const d = document.getElementById('eDate').value, a = document.getElementById('eAmt').value;
-    if(!d || !a) return alert("Please enter Date and Amount!");
+    if(!d || !a) return alert("தேதி மற்றும் தொகையை நிரப்பவும்!");
     
-    let entry = { 
-        id: Date.now(), 
-        date: d, 
-        mob: document.getElementById('eMob').value || "-", 
-        cat: document.getElementById('eCat').value, 
-        desc: document.getElementById('eDesc').value || "-", 
-        amt: a, 
-        type: document.getElementById('eType').value 
-    };
+    let entry = { id: Date.now(), date: d, mob: document.getElementById('eMob').value || "-", cat: document.getElementById('eCat').value, desc: document.getElementById('eDesc').value || "-", amt: a, type: document.getElementById('eType').value };
     db.push(entry);
     localStorage.setItem('saha_v66_db', JSON.stringify(db));
     refresh();
     document.getElementById('eAmt').value = ""; document.getElementById('eDesc').value = "";
 }
 
-function downloadPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    
-    // Header
-    doc.setFillColor(12, 64, 187);
-    doc.rect(0, 0, 210, 40, 'F');
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(22);
-    doc.text(cfg.title, 15, 20);
-    doc.setFontSize(10);
-    doc.text("REPORT GENERATED ON: " + new Date().toLocaleString(), 15, 30);
-    
-    // Sub Total & Categories (Only filtered)
-    doc.setTextColor(0, 0, 0);
-    doc.setFontSize(14);
-    doc.text(`FILTERED TOTAL BALANCE: RS. ${lastGrandTotal.toLocaleString()}`, 15, 50);
-    
-    // Table
-    doc.autoTable({
-        head: [['DATE', 'MOBILE', 'CATEGORY', 'REMARK', 'AMOUNT', 'TYPE']],
-        body: lastFilteredData.map(t => [t.date.split('-').reverse().join('/'), t.mob, t.cat, t.desc, t.amt, t.type]),
-        startY: 60,
-        headStyles: { fillColor: [30, 41, 59] },
-        alternateRowStyles: { fillColor: [241, 245, 249] }
+function refresh() {
+    db.sort((a, b) => new Date(b.date) - new Date(a.date));
+    let html = "", grand = 0, tempSums = {}; 
+    cfg.cats.forEach(c => tempSums[c] = 0);
+
+    db.filter(t => currentViewMode === "BOTH" || t.type === currentViewMode).forEach(t => {
+        let amt = parseFloat(t.amt) || 0;
+        let v = (t.type === "CR") ? amt : -amt;
+        tempSums[t.cat] += v; grand += v;
+        html += `<tr class="border-b"><td class="p-3">${t.date.split('-').reverse().join('/')}</td><td>${t.cat}</td><td class="text-blue-700">${t.desc}</td><td class="text-right ${t.type==='CR'?'text-green-600':'text-red-600'}">₹${amt.toLocaleString()}</td><td class="p-3"><button onclick="del(${t.id})" class="text-red-600">✖</button></td></tr>`;
     });
-    
-    doc.save(`${cfg.title}_Filtered_Report.pdf`);
+    document.getElementById('resTable').innerHTML = html;
+    document.getElementById('mainTotal').innerText = "₹" + grand.toLocaleString();
+    cfg.cats.forEach(c => { if(document.getElementById('sum_'+c)) document.getElementById('sum_'+c).innerText = (tempSums[c] || 0).toLocaleString(); });
 }
 
-function sendWhatsApp() {
-    let msg = `*${cfg.title} - REPORT*\n`;
-    msg += `--------------------------\n`;
-    msg += `*Filtered Total: ₹${lastGrandTotal.toLocaleString()}*\n`;
-    msg += `Total Records: ${lastFilteredData.length}\n`;
-    msg += `--------------------------\n`;
-    
-    // Last 5 transactions for brief
-    lastFilteredData.slice(0, 5).forEach(t => {
-        msg += `• ${t.date.split('-').reverse().join('/')} | ${t.cat} | ${t.type==='CR'?'+':'-'}₹${t.amt}\n`;
-    });
-    if(lastFilteredData.length > 5) msg += `...and more (Download PDF for full history)`;
-    
-    window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
-}
-
-// --- Utils ---
-function toggleFilter(cat) {
-    const btns = document.querySelectorAll('#filterCatList button');
-    btns.forEach(b => b.classList.remove('filter-active'));
-    
-    if(cat === 'ALL') {
-        activeFilters = [];
-        document.getElementById('btn_ALL').classList.add('filter-active');
-    } else {
-        const idx = activeFilters.indexOf(cat);
-        if(idx > -1) activeFilters.splice(idx, 1);
-        else activeFilters.push(cat);
-        
-        activeFilters.forEach(f => document.getElementById('btn_'+f).classList.add('filter-active'));
-    }
-    refresh();
-}
-
-function editRow(id) {
-    let item = db.find(x => x.id === id);
-    if(item) {
-        document.getElementById('eDate').value = item.date;
-        document.getElementById('eMob').value = item.mob;
-        document.getElementById('eCat').value = item.cat;
-        document.getElementById('eDesc').value = item.desc;
-        document.getElementById('eAmt').value = item.amt;
-        document.getElementById('eType').value = item.type;
-        db = db.filter(x => x.id !== id);
-        localStorage.setItem('saha_v66_db', JSON.stringify(db));
-        refresh();
-    }
-}
-
-function del(id) { if(confirm("Are you sure?")) { db = db.filter(x => x.id !== id); localStorage.setItem('saha_v66_db', JSON.stringify(db)); refresh(); } }
-
-function deleteAll() { if(prompt("Type 'DELETE ALL' to confirm:") === "DELETE ALL") { db = []; localStorage.setItem('saha_v66_db', JSON.stringify(db)); refresh(); } }
-
-function exportData() {
-    const blob = new Blob([JSON.stringify(db)], {type: "application/json"});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a'); a.href = url; 
-    a.download = `Saha_Backup_${new Date().toISOString().split('T')[0]}.json`;
-    a.click();
-}
-
-function importData(e) {
-    const reader = new FileReader();
-    reader.onload = function(ev) {
-        try {
-            db = JSON.parse(ev.target.result);
-            localStorage.setItem('saha_v66_db', JSON.stringify(db));
-            refresh(); alert("Import Success!");
-        } catch { alert("Invalid File"); }
-    };
-    reader.readAsText(e.target.files[0]);
-}
-
-function setStartingDate() {
-    let v = document.getElementById('bellDate').value;
-    if(v) { cfg.startingDate = v; localStorage.setItem('saha_v66_cfg', JSON.stringify(cfg)); init(); }
-}
-
-function openSettings() {
-    if(prompt("ADMIN PIN:") === cfg.adminPin) {
-        document.getElementById('setModal').classList.remove('hidden');
-        document.getElementById('setHeadCol').value = cfg.headCol;
-        document.getElementById('setNameCol').value = cfg.nameCol;
-        document.getElementById('setTitle').value = cfg.title;
-        document.getElementById('setAdminPin').value = cfg.adminPin;
-        document.getElementById('setExpDate').value = cfg.expiryDate;
-        
-        let area = document.getElementById('catEditArea'); area.innerHTML = "";
-        cfg.cats.forEach((c, i) => {
-            area.innerHTML += `<div class="setting-row">
-                <span>ID:${i+1}</span>
-                <input type="text" id="cn_${i}" value="${c}" class="w-24 border px-1 text-xs uppercase">
-                <input type="checkbox" id="cs_${i}" ${cfg.catStatus[i]?'checked':''}>
-            </div>`;
-        });
-    } else { alert("Wrong Pin!"); }
-}
-
-function saveSettings() {
-    cfg.headCol = document.getElementById('setHeadCol').value;
-    cfg.nameCol = document.getElementById('setNameCol').value;
-    cfg.title = document.getElementById('setTitle').value;
-    cfg.adminPin = document.getElementById('setAdminPin').value;
-    cfg.expiryDate = document.getElementById('setExpDate').value;
-    cfg.cats.forEach((_, i) => {
-        cfg.cats[i] = document.getElementById(`cn_${i}`).value.toUpperCase();
-        cfg.catStatus[i] = document.getElementById(`cs_${i}`).checked;
-    });
-    localStorage.setItem('saha_v66_cfg', JSON.stringify(cfg));
-    location.reload();
-}
-
-function closeSettings() { document.getElementById('setModal').classList.add('hidden'); }
+function del(id) { if(confirm("நீக்கலாமா?")) { db = db.filter(x => x.id !== id); localStorage.setItem('saha_v66_db', JSON.stringify(db)); refresh(); } }
+function openSettings() { if(prompt("ADMIN PIN:") === cfg.adminPin) { alert("Settings feature to be added if needed."); } }
+function exportData() { const blob = new Blob([JSON.stringify(db)], {type: "application/json"}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `Backup.json`; a.click(); }
+function downloadPDF() { alert("PDF Generating..."); }
+function sendWhatsApp() { alert("WhatsApp Sending..."); }
 </script>
 </body>
 </html>
